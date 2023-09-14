@@ -1,8 +1,8 @@
 # WILDBERRIES API (clone)
 
 ## Technology stack:
-- Java 11
-- Spring Boot 2.6.6
+- Java 17
+- Spring Boot 2.7.12
 - Database (PostgreSQL)
 - Hibernate ORM
 - Flyway
