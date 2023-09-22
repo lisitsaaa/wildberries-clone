@@ -1,4 +1,4 @@
-package com.example.wildberriesclone.entity.user;
+package com.example.wildberriesclone.entity.account.user;
 
 import org.springframework.security.core.GrantedAuthority;
 
