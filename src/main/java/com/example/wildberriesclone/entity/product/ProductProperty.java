@@ -2,12 +2,12 @@ package com.example.wildberriesclone.entity.product;
 
 import com.example.wildberriesclone.entity.AbstractEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 import lombok.*;
 
-@Entity @Table
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+
+@Entity
 @Setter @Getter
 @Builder @AllArgsConstructor @NoArgsConstructor
 public class ProductProperty extends AbstractEntity {

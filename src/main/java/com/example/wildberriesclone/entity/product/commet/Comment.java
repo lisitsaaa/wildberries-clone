@@ -4,15 +4,14 @@ import com.example.wildberriesclone.entity.AbstractEntity;
 import com.example.wildberriesclone.entity.account.user.User;
 import com.example.wildberriesclone.entity.product.Product;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
 import lombok.*;
 
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import java.time.LocalDate;
 
-@Entity @Table
+@Entity
 @Setter @Getter
 @Builder @AllArgsConstructor @NoArgsConstructor
 public class Comment extends AbstractEntity {
