@@ -1,6 +1,8 @@
 package com.example.wildberriesclone.controller;
 
+import com.example.wildberriesclone.dto.user.AuthDto;
 import com.example.wildberriesclone.dto.user.RegDto;
+import com.example.wildberriesclone.dto.user.TokenDto;
 import com.example.wildberriesclone.dto.user.UserDto;
 import com.example.wildberriesclone.wrapper.UserWrapper;
 import lombok.RequiredArgsConstructor;
@@ -22,5 +24,11 @@ public class UserController {
     public UserDto registration(@RequestBody @Valid RegDto regDto,
                                 BindingResult bindingResult){
         return userWrapper.save(regDto, bindingResult);
+    }
+
+    @PostMapping("/auth")
+    public TokenDto authorization(@RequestBody @Valid AuthDto authDto,
+                                  BindingResult bindingResult){
+        return userWrapper.getToken(authDto, bindingResult);
     }
 }
