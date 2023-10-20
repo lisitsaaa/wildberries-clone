@@ -3,6 +3,7 @@ package com.example.wildberriesclone.controller.util;
 import com.example.wildberriesclone.exception.ExistsException;
 import com.example.wildberriesclone.exception.InvalidDataException;
 import com.example.wildberriesclone.exception.NotFoundException;
+import com.example.wildberriesclone.exception.OwnerException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -26,6 +27,11 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ExistsException.class)
     public ResponseEntity<Object> existsException(ExistsException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(OwnerException.class)
+    public ResponseEntity<Object> ownerException(OwnerException e){
         return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
     }
 }
