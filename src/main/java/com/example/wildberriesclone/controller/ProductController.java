@@ -1,9 +1,13 @@
 package com.example.wildberriesclone.controller;
 
 import com.example.wildberriesclone.dto.product.ProductDto;
+import com.example.wildberriesclone.dto.product.ProductListDto;
+import com.example.wildberriesclone.entity.product.Category;
+import com.example.wildberriesclone.entity.product.ProductStatus;
 import com.example.wildberriesclone.service.ProductService;
 import com.example.wildberriesclone.wrapper.ProductWrapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,13 +25,32 @@ public class ProductController {
     @PostMapping
     public ProductDto save(@RequestBody ProductDto productDto,
                            BindingResult bindingResult,
-                           @AuthenticationPrincipal UserDetails userDetails){
+                           @AuthenticationPrincipal UserDetails userDetails) {
         return productWrapper.save(productDto, bindingResult, userDetails);
     }
 
     @DeleteMapping("/{id}")
     public void remove(@PathVariable long id,
-                       @AuthenticationPrincipal UserDetails userDetails){
+                       @AuthenticationPrincipal UserDetails userDetails) {
         productService.remove(id, userDetails);
+    }
+
+    @PutMapping("/status/{ProductStatus}/{id}")
+    public ProductDto changeProductStatus(@PathVariable ProductStatus ProductStatus,
+                                          @PathVariable long id){
+        return productWrapper.changeStatus(ProductStatus, id);
+    }
+
+    @GetMapping("/article/{article}")
+    public ProductDto getByArticle(@PathVariable String article) {
+        return productWrapper.getByArticle(article);
+    }
+
+    @GetMapping("/category/{category}")
+    public ProductListDto getByCategoryWithPagination(
+            @RequestParam(required = false, defaultValue = "0") int page,
+            @RequestParam(required = false, defaultValue = "5") int size,
+            @PathVariable Category category) {
+        return productWrapper.getByCategoryWithPagination(category, PageRequest.of(page, size));
     }
 }

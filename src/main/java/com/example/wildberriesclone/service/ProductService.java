@@ -1,17 +1,22 @@
 package com.example.wildberriesclone.service;
 
+import com.example.wildberriesclone.entity.product.Category;
 import com.example.wildberriesclone.entity.product.Product;
+import com.example.wildberriesclone.entity.product.ProductStatus;
 import com.example.wildberriesclone.exception.ExistsException;
 import com.example.wildberriesclone.exception.NotFoundException;
 import com.example.wildberriesclone.exception.OwnerException;
 import com.example.wildberriesclone.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static com.example.wildberriesclone.service.util.Validator.checkBindingResult;
@@ -43,6 +48,28 @@ public class ProductService {
         } else {
             throw new OwnerException(owner_message);
         }
+    }
+
+    public Product updateStatus(ProductStatus productStatus, long id){
+        Product product = findById(id);
+        product.setStatus(productStatus);
+        return productRepository.save(product);
+    }
+
+    @Transactional(readOnly = true)
+    public Product findByArticle(String article){
+        return getCheckedProduct(productRepository.findByArticle(article));
+    }
+
+    @Transactional(readOnly = true)
+    public List<Product> findByCategoryWithPagination(Category category, PageRequest pageRequest){
+        List<Product> productsWithCategory = new ArrayList<>();
+        for (Product product : productRepository.findAll(pageRequest).getContent()){
+            if (product.getCategory().equals(category)){
+                productsWithCategory.add(product);
+            }
+        }
+        return productsWithCategory;
     }
 
     @Transactional(readOnly = true)
