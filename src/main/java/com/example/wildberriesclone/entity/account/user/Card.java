@@ -3,10 +3,7 @@ package com.example.wildberriesclone.entity.account.user;
 import com.example.wildberriesclone.entity.AbstractEntity;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
