@@ -1,6 +1,8 @@
 package com.example.wildberriesclone.mapper;
 
+import com.example.wildberriesclone.dto.user.AuthDto;
 import com.example.wildberriesclone.dto.user.RegDto;
+import com.example.wildberriesclone.dto.user.TokenDto;
 import com.example.wildberriesclone.dto.user.UserDto;
 import com.example.wildberriesclone.entity.account.user.User;
 import org.mapstruct.Mapper;
@@ -11,7 +13,12 @@ public interface UserMapper {
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
     User dtoToUser(UserDto dto);
+
     UserDto userToDto(User user);
 
     User regDtoToUser(RegDto dto);
+
+    User authDtoToUser(AuthDto dto);
+
+    TokenDto stringToTokenDto(String token);
 }
