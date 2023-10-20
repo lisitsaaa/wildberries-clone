@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor @AllArgsConstructor
-public class UserCardInfoDto {
+public class UserInfoDto {
     private String username;
     private String email;
 }
