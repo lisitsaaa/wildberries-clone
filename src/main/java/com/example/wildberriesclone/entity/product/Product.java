@@ -2,13 +2,9 @@ package com.example.wildberriesclone.entity.product;
 
 import com.example.wildberriesclone.entity.AbstractEntity;
 import com.example.wildberriesclone.entity.account.user.User;
-import com.example.wildberriesclone.entity.product.commet.Comment;
 import lombok.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -16,15 +12,19 @@ import java.util.List;
 @Builder @AllArgsConstructor @NoArgsConstructor
 public class Product extends AbstractEntity {
     private String name;
+    private double price;
+    private String article;
     private String description;
-    private Category category;
 
-    @OneToOne
+    @ManyToOne
     private User seller;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<ProductProperty> productProperties;
+    @Enumerated(value = EnumType.STRING)
+    private Category category;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<Comment> comments;
+    @Enumerated(value = EnumType.STRING)
+    private ProductStatus status;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<ProductProperty> productProperties;
 }

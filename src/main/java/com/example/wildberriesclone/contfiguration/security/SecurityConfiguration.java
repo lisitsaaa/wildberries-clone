@@ -28,6 +28,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static final String ADMIN_ENDPOINT = "/**/admin/**";
     private static final String SWAGGER_ENDPOINT = "/swagger-ui/**";
     private static final String VERSION_ENDPOINT = "/v3/api-docs/**";
+    private static final String PRODUCT_ENDPOINT = "/api/product/**";
     private static final String OPEN_API_ENDPOINT = "/javainuse-openapi/**";
 
     @Override
@@ -45,6 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(LOGIN_ENDPOINT).permitAll()
                 .antMatchers(REG_ENDPOINT).permitAll()
+                .antMatchers(PRODUCT_ENDPOINT).hasAnyAuthority(Role.ADMIN.name(), Role.SELLER.name())
                 .antMatchers(ADMIN_ENDPOINT).hasAuthority(Role.ADMIN.name())
                 .anyRequest().authenticated()
                 .and()
