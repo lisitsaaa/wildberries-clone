@@ -53,4 +53,12 @@ public class ProductController {
             @PathVariable Category category) {
         return productWrapper.getByCategoryWithPagination(category, PageRequest.of(page, size));
     }
+
+    @GetMapping("/name/{name}")
+    public ProductListDto getByNameWithPagination(
+            @RequestParam(required = false, defaultValue = "0") int page,
+            @RequestParam(required = false, defaultValue = "5") int size,
+            @PathVariable String name) {
+        return productWrapper.getByNameWithPagination(name, PageRequest.of(page, size));
+    }
 }

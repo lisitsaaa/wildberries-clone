@@ -44,6 +44,17 @@ public class ProductWrapper {
         productListDto.setProducts(products);
         return productListDto;
     }
+    public ProductListDto getByNameWithPagination(String name, PageRequest pageRequest){
+        ProductListDto productListDto = new ProductListDto();
+        List<ProductDto> products = new ArrayList<>();
+
+        productService.findByName(name, pageRequest)
+                .forEach(product ->
+                        products.add(
+                                INSTANCE.productToDto(product)));
+        productListDto.setProducts(products);
+        return productListDto;
+    }
 
     public ProductDto changeStatus(ProductStatus productStatus, long id){
         return INSTANCE.productToDto(productService.updateStatus(productStatus, id));

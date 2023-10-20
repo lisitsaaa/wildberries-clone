@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 
 import java.util.ArrayList;
@@ -57,24 +58,45 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
+    public List<Product> findByName(String name, PageRequest pageRequest){
+        List<Product> productsByName = new ArrayList<>();
+        for (Product product : productRepository.findAll(pageRequest).getContent()){
+            if (product.getName().equals(name)) {
+                productsByName.add(product);
+            }
+        }
+        return getProductList(productsByName);
+    }
+
+    @Transactional(readOnly = true)
     public Product findByArticle(String article){
         return getCheckedProduct(productRepository.findByArticle(article));
     }
 
     @Transactional(readOnly = true)
     public List<Product> findByCategoryWithPagination(Category category, PageRequest pageRequest){
-        List<Product> productsWithCategory = new ArrayList<>();
+        List<Product> productsByCategory = new ArrayList<>();
         for (Product product : productRepository.findAll(pageRequest).getContent()){
             if (product.getCategory().equals(category)){
-                productsWithCategory.add(product);
+                productsByCategory.add(product);
             }
         }
-        return productsWithCategory;
+        return getProductList(productsByCategory);
     }
+
+
 
     @Transactional(readOnly = true)
     public Product findById(long id){
         return getCheckedProduct(productRepository.findById(id));
+    }
+
+
+    private List<Product> getProductList(List<Product> products){
+        if (CollectionUtils.isEmpty(products)) {
+            throw new NotFoundException(not_found_message);
+        }
+        return products;
     }
 
     private Product getCheckedProduct(Optional<Product> product){
