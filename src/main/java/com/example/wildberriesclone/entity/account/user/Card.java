@@ -1,18 +1,24 @@
 package com.example.wildberriesclone.entity.account.user;
 
 import com.example.wildberriesclone.entity.AbstractEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 import lombok.*;
 
-@Entity @Table
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
 @Setter @Getter
 @Builder @AllArgsConstructor @NoArgsConstructor
 public class Card extends AbstractEntity {
-    @ManyToOne
-    @JsonIgnore
-    private User user;
+    @ManyToMany
+    @JoinTable(name = "user_cards",
+            joinColumns = @JoinColumn(name = "card_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> users = new HashSet<>();
+
     private String number;
 }

@@ -3,12 +3,15 @@ package com.example.wildberriesclone.entity.product;
 import com.example.wildberriesclone.entity.AbstractEntity;
 import com.example.wildberriesclone.entity.account.user.User;
 import com.example.wildberriesclone.entity.product.commet.Comment;
-import jakarta.persistence.*;
 import lombok.*;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.util.List;
 
-@Entity @Table
+@Entity
 @Setter @Getter
 @Builder @AllArgsConstructor @NoArgsConstructor
 public class Product extends AbstractEntity {
