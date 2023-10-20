@@ -12,17 +12,18 @@ import java.util.List;
 @Builder @AllArgsConstructor @NoArgsConstructor
 public class Product extends AbstractEntity {
     private String name;
-    private String description;
     private double price;
+    private String article;
+    private String description;
+
+    @ManyToOne
+    private User seller;
 
     @Enumerated(value = EnumType.STRING)
     private Category category;
 
     @Enumerated(value = EnumType.STRING)
     private ProductStatus status;
-
-    @ManyToOne
-    private User seller;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<ProductProperty> productProperties;
