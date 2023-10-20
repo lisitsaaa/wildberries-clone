@@ -57,6 +57,35 @@ public class ProductService {
         return productRepository.save(product);
     }
 
+    public Product update(Product product, BindingResult bindingResult, long productId){
+        checkBindingResult(bindingResult);
+        return getUpdatedProduct(product, productId);
+    }
+
+    private Product getUpdatedProduct(Product product, long productId){
+        Product productFromBase = findById(productId);
+
+        if (!String.valueOf(product.getName()).isEmpty())
+            productFromBase.setName(product.getName());
+
+        if (!String.valueOf(product.getArticle()).isEmpty())
+            productFromBase.setArticle(product.getArticle());
+
+        if (!String.valueOf(product.getDescription()).isEmpty())
+            productFromBase.setDescription(product.getDescription());
+
+        if (!CollectionUtils.isEmpty(product.getProductProperties()))
+            productFromBase.setProductProperties(product.getProductProperties());
+
+        if (!String.valueOf(product.getPrice()).isEmpty())
+            productFromBase.setPrice(product.getPrice());
+
+        if (!String.valueOf(product.getCategory()).isEmpty())
+            productFromBase.setCategory(product.getCategory());
+
+        return productFromBase;
+    }
+
     @Transactional(readOnly = true)
     public List<Product> findByName(String name, PageRequest pageRequest){
         List<Product> productsByName = new ArrayList<>();

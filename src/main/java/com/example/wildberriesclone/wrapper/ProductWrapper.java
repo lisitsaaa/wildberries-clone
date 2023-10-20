@@ -2,6 +2,7 @@ package com.example.wildberriesclone.wrapper;
 
 import com.example.wildberriesclone.dto.product.ProductDto;
 import com.example.wildberriesclone.dto.product.ProductListDto;
+import com.example.wildberriesclone.dto.product.UpdatedProductDto;
 import com.example.wildberriesclone.entity.product.Category;
 import com.example.wildberriesclone.entity.product.Product;
 import com.example.wildberriesclone.entity.product.ProductStatus;
@@ -54,6 +55,14 @@ public class ProductWrapper {
                                 INSTANCE.productToDto(product)));
         productListDto.setProducts(products);
         return productListDto;
+    }
+
+    public ProductDto update(UpdatedProductDto updatedProductDto, BindingResult bindingResult, long id){
+        return INSTANCE.productToDto(
+                productService.update(
+                        INSTANCE.updatedProductToDto(updatedProductDto),
+                        bindingResult,
+                        id));
     }
 
     public ProductDto changeStatus(ProductStatus productStatus, long id){
